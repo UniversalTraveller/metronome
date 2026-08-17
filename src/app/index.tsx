@@ -1,19 +1,44 @@
+import { Button, Host, Slider } from "@expo/ui";
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+
+const MIN_BPM = 40;
+const MAX_BPM = 240;
 
 export default function Index() {
   const [bpm, setBpm] = useState<number>(120);
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={() => setBpm((prev) => prev - 1)}>
-        <Text style={styles.button}>-</Text>
-      </Pressable>
-
       <Text style={styles.bpmDisplay}>{bpm}</Text>
-      <Pressable onPress={() => setBpm((prev) => prev + 1)}>
-        <Text style={styles.button}>+</Text>
-      </Pressable>
+
+      <View style={styles.controls}>
+        <Host matchContents style={styles.buttonHost}>
+          <Button
+            disabled={bpm <= MIN_BPM}
+            label="−"
+            onPress={() => setBpm((prev) => Math.max(prev - 1, MIN_BPM))}
+          />
+        </Host>
+
+        <Host style={styles.sliderHost}>
+          <Slider
+            value={bpm}
+            onValueChange={(value) => setBpm(value)}
+            step={1}
+            min={MIN_BPM}
+            max={MAX_BPM}
+          />
+        </Host>
+
+        <Host matchContents style={styles.buttonHost}>
+          <Button
+            disabled={bpm >= MAX_BPM}
+            label="+"
+            onPress={() => setBpm((prev) => Math.min(prev + 1, MAX_BPM))}
+          />
+        </Host>
+      </View>
     </View>
   );
 }
@@ -21,16 +46,24 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    paddingHorizontal: 24,
+  },
+  controls: {
+    width: "100%",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
   },
   bpmDisplay: {
     fontSize: 48,
-    marginHorizontal: 20,
   },
-  button: {
-    fontSize: 24,
-    marginHorizontal: 10,
+  buttonHost: {
+    marginHorizontal: 6,
+  },
+  sliderHost: {
+    flex: 1,
   },
 });
