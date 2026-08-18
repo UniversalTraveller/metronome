@@ -1,3 +1,4 @@
+import { BeatIndicator } from "@/components/beat-indicator";
 import { BpmButton } from "@/components/bpm-button";
 import { BpmDisplay } from "@/components/bpm-display";
 import { BpmSlider } from "@/components/bpm-slider";
@@ -5,6 +6,7 @@ import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 const MIN_BPM = 40;
+
 const MAX_BPM = 240;
 
 export default function Index() {
@@ -12,26 +14,30 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <BpmDisplay value={bpm} />
+      <BeatIndicator bpm={bpm} />
 
-      <View style={styles.controls}>
+      <View style={styles.bpmRow}>
         <BpmButton
           disabled={bpm <= MIN_BPM}
           label="−"
           onPress={() => setBpm((prev) => Math.max(prev - 1, MIN_BPM))}
         />
 
-        <BpmSlider
-          max={MAX_BPM}
-          min={MIN_BPM}
-          onValueChange={setBpm}
-          value={bpm}
-        />
+        <BpmDisplay value={bpm} />
 
         <BpmButton
           disabled={bpm >= MAX_BPM}
           label="+"
           onPress={() => setBpm((prev) => Math.min(prev + 1, MAX_BPM))}
+        />
+      </View>
+
+      <View style={styles.sliderRow}>
+        <BpmSlider
+          max={MAX_BPM}
+          min={MIN_BPM}
+          onValueChange={setBpm}
+          value={bpm}
         />
       </View>
     </View>
@@ -46,10 +52,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingHorizontal: 24,
   },
-  controls: {
-    width: "100%",
+
+  sliderRow: {
+    flexDirection: "row",
+  },
+
+  bpmRow: {
+    width: "60%",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-around",
+    marginBottom: 32,
   },
 });
