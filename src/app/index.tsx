@@ -5,6 +5,7 @@ import { BpmSlider } from "@/components/bpm-slider";
 import { PlayPauseButton } from "@/components/play-pause-button";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
+import { Surface } from "react-native-paper";
 
 const MIN_BPM = 40;
 
@@ -16,14 +17,14 @@ const Index = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <View style={styles.screen}>
+    <Surface elevation={0} style={styles.screen}>
       <View style={styles.controls}>
         <BeatIndicator bpm={bpm} isPlaying={isPlaying} />
 
         <View style={styles.bpmRow}>
           <BpmButton
             disabled={bpm <= MIN_BPM}
-            label="−"
+            icon="minus"
             onPress={() => setBpm((prev) => Math.max(prev - 1, MIN_BPM))}
           />
 
@@ -31,7 +32,7 @@ const Index = () => {
 
           <BpmButton
             disabled={bpm >= MAX_BPM}
-            label="+"
+            icon="plus"
             onPress={() => setBpm((prev) => Math.min(prev + 1, MAX_BPM))}
           />
         </View>
@@ -50,7 +51,7 @@ const Index = () => {
           onPress={() => setIsPlaying((playing) => !playing)}
         />
       </View>
-    </View>
+    </Surface>
   );
 };
 
@@ -59,7 +60,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
     paddingHorizontal: 24,
   },
 

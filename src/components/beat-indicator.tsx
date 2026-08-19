@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
+import { useTheme } from "react-native-paper";
 
 const BEAT_COUNT = 4;
 
@@ -41,6 +42,8 @@ type BeatDotsProps = {
 };
 
 const BeatDots = ({ accessibilityLabel, activeBeat }: BeatDotsProps) => {
+  const theme = useTheme();
+
   return (
     <View
       accessibilityLabel={accessibilityLabel}
@@ -50,7 +53,15 @@ const BeatDots = ({ accessibilityLabel, activeBeat }: BeatDotsProps) => {
       {Array.from({ length: BEAT_COUNT }, (_, beat) => (
         <View
           key={beat}
-          style={[styles.beat, beat === activeBeat && styles.activeBeat]}
+          style={[
+            styles.beat,
+            {
+              backgroundColor:
+                beat === activeBeat
+                  ? theme.colors.primary
+                  : theme.colors.surfaceVariant,
+            },
+          ]}
         />
       ))}
     </View>
@@ -68,9 +79,5 @@ const styles = StyleSheet.create({
     height: 30,
     borderRadius: 15,
     backgroundColor: "#D1D5DB",
-  },
-
-  activeBeat: {
-    backgroundColor: "#0A84FF",
   },
 });

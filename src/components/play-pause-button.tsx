@@ -1,5 +1,5 @@
-import { SymbolView } from "expo-symbols";
-import { Pressable, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
+import { IconButton } from "react-native-paper";
 
 type PlayPauseButtonProps = {
   isPlaying: boolean;
@@ -11,37 +11,23 @@ export const PlayPauseButton = ({
   onPress,
 }: PlayPauseButtonProps) => {
   return (
-    <Pressable
+    <IconButton
       accessibilityLabel={isPlaying ? "Pause metronome" : "Play metronome"}
-      accessibilityRole="button"
-      hitSlop={8}
+      animated
+      icon={isPlaying ? "pause" : "play"}
+      mode="contained"
       onPress={onPress}
-      style={({ pressed }) => [styles.button, pressed && styles.pressed]}
-    >
-      <SymbolView
-        name={{
-          android: isPlaying ? "pause" : "play_arrow",
-          ios: isPlaying ? "pause.fill" : "play.fill",
-          web: isPlaying ? "pause" : "play_arrow",
-        }}
-        size={30}
-        tintColor="#fff"
-      />
-    </Pressable>
+      size={32}
+      style={styles.button}
+    />
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    alignItems: "center",
-    backgroundColor: "#0A84FF",
     borderRadius: 32,
     height: 64,
-    justifyContent: "center",
+    margin: 0,
     width: 64,
-  },
-
-  pressed: {
-    opacity: 0.7,
   },
 });

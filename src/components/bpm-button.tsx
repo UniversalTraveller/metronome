@@ -1,22 +1,22 @@
-import { Button, Host } from "@expo/ui";
-import { StyleSheet } from "react-native";
+import { IconButton } from "react-native-paper";
 
 type BpmButtonProps = {
   disabled?: boolean;
-  label: string;
+  icon: "minus" | "plus";
   onPress: () => void;
 };
 
-export const BpmButton = ({ disabled, label, onPress }: BpmButtonProps) => {
+export const BpmButton = ({ disabled, icon, onPress }: BpmButtonProps) => {
   return (
-    <Host matchContents style={styles.host}>
-      <Button disabled={disabled} label={label} onPress={onPress} />
-    </Host>
+    <IconButton
+      accessibilityLabel={
+        icon === "minus" ? "Decrease tempo" : "Increase tempo"
+      }
+      disabled={disabled}
+      icon={icon}
+      mode="contained"
+      onPress={onPress}
+      size={24}
+    />
   );
 };
-
-const styles = StyleSheet.create({
-  host: {
-    marginHorizontal: 6,
-  },
-});

@@ -1,5 +1,6 @@
-import { Host, Slider } from "@expo/ui";
+import Slider from "@react-native-community/slider";
 import { StyleSheet } from "react-native";
+import { useTheme } from "react-native-paper";
 
 type BpmSliderProps = {
   max: number;
@@ -14,21 +15,26 @@ export const BpmSlider = ({
   onValueChange,
   value,
 }: BpmSliderProps) => {
+  const theme = useTheme();
+
   return (
-    <Host matchContents={{ vertical: true }} style={styles.host}>
-      <Slider
-        max={max}
-        min={min}
-        onValueChange={onValueChange}
-        step={1}
-        value={value}
-      />
-    </Host>
+    <Slider
+      accessibilityLabel="Tempo"
+      maximumTrackTintColor={theme.colors.surfaceVariant}
+      maximumValue={max}
+      minimumTrackTintColor={theme.colors.primary}
+      minimumValue={min}
+      onValueChange={onValueChange}
+      step={1}
+      style={styles.slider}
+      thumbTintColor={theme.colors.primary}
+      value={value}
+    />
   );
 };
 
 const styles = StyleSheet.create({
-  host: {
+  slider: {
     width: "100%",
   },
 });
