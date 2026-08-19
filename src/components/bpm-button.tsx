@@ -7,13 +7,13 @@ type BpmButtonProps = {
   onPress: () => void;
 };
 
-export function BpmButton({ disabled, label, onPress }: BpmButtonProps) {
+export const BpmButton = ({ disabled, label, onPress }: BpmButtonProps) => {
   return (
     <Host matchContents style={styles.host}>
       <Button disabled={disabled} label={label} onPress={onPress} />
     </Host>
   );
-}
+};
 
 const styles = StyleSheet.create({
   host: {

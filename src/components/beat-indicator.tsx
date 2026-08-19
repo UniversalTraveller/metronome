@@ -5,9 +5,18 @@ const BEAT_COUNT = 4;
 
 type BeatIndicatorProps = {
   bpm: number;
+  isPlaying: boolean;
 };
 
-export function BeatIndicator({ bpm }: BeatIndicatorProps) {
+export const BeatIndicator = ({ bpm, isPlaying }: BeatIndicatorProps) => {
+  if (!isPlaying) {
+    return <BeatDots accessibilityLabel="Metronome paused" activeBeat={null} />;
+  }
+
+  return <PlayingBeatIndicator bpm={bpm} />;
+};
+
+const PlayingBeatIndicator = ({ bpm }: Pick<BeatIndicatorProps, "bpm">) => {
   const [activeBeat, setActiveBeat] = useState(0);
 
   useEffect(() => {
@@ -19,8 +28,22 @@ export function BeatIndicator({ bpm }: BeatIndicatorProps) {
   }, [bpm]);
 
   return (
+    <BeatDots
+      accessibilityLabel={`Playing, beat ${activeBeat + 1} of ${BEAT_COUNT}`}
+      activeBeat={activeBeat}
+    />
+  );
+};
+
+type BeatDotsProps = {
+  accessibilityLabel: string;
+  activeBeat: number | null;
+};
+
+const BeatDots = ({ accessibilityLabel, activeBeat }: BeatDotsProps) => {
+  return (
     <View
-      accessibilityLabel={`Beat ${activeBeat + 1} of ${BEAT_COUNT}`}
+      accessibilityLabel={accessibilityLabel}
       accessible
       style={styles.container}
     >
@@ -32,7 +55,7 @@ export function BeatIndicator({ bpm }: BeatIndicatorProps) {
       ))}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
