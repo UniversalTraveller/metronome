@@ -1,4 +1,4 @@
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 type BpmDisplayProps = {
   value: number;
@@ -6,14 +6,37 @@ type BpmDisplayProps = {
 
 export const BpmDisplay = ({ value }: BpmDisplayProps) => {
   return (
-    <Text accessibilityLabel={`${value} beats per minute`} style={styles.text}>
-      {value}
-    </Text>
+    <View
+      accessibilityLabel={`${value} beats per minute`}
+      accessible
+      style={styles.container}
+    >
+      <Text style={[styles.text, styles.value]}>{value}</Text>
+
+      <Text style={[styles.text, styles.label]}>BPM</Text>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    alignItems: "baseline",
+    flexDirection: "row",
+  },
+
   text: {
-    fontSize: 48,
+    fontSize: 36,
+    lineHeight: 52,
+  },
+
+  value: {
+    fontVariant: ["tabular-nums"],
+    textAlign: "right",
+    width: 70,
+  },
+
+  label: {
+    fontSize: 18,
+    marginLeft: 8,
   },
 });

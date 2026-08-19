@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     borderRadius: 32,
     height: 64,
     justifyContent: "center",
-    marginTop: 32,
     width: 64,
   },
 

@@ -61,8 +61,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     gap: 20,
-    marginBottom: 32,
-    marginTop: 24,
   },
 
   beat: {
