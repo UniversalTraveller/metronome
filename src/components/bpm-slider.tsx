@@ -10,7 +10,7 @@ type BpmSliderProps = {
 
 export function BpmSlider({ max, min, onValueChange, value }: BpmSliderProps) {
   return (
-    <Host style={styles.host}>
+    <Host matchContents={{ vertical: true }} style={styles.host}>
       <Slider
         max={max}
         min={min}
@@ -24,6 +24,6 @@ export function BpmSlider({ max, min, onValueChange, value }: BpmSliderProps) {
 
 const styles = StyleSheet.create({
   host: {
-    flex: 1,
+    width: "100%",
   },
 });
